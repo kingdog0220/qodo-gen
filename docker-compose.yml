@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  node-tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qodo-gen
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ${HOST_DIR:-.}:/work
+    tty: true
