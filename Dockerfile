@@ -1,4 +1,4 @@
-FROM node:24-slim
+FROM node:24-bookworm-slim
 
 # qodo が必要とする最小ツール
 RUN apt-get update && apt-get install -y \
@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # qodo CLI をグローバルインストール
-RUN npm install -g @qodo/command
+RUN npm install -g --ignore-scripts @qodo/command \
+    && npm cache clean --force
 
 # 非特権ユーザーを作成して作業ディレクトリをセット
 RUN useradd -m dev && chown -R dev:dev /home/dev
